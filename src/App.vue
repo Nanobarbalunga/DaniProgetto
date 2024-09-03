@@ -1,23 +1,77 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
+
 
 <template>
   <header>
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <div class="wrapper" :class="{
+      'green': color,
+      'red': !color
+    }" >
+      <CinappiWorld msg="ciaooooo!" :data="datetime"/>
     </div>
+
+    <div><h1>Datetime: {{ dataOggi }}</h1></div>
   </header>
 
   <main>
-    <TheWelcome />
+    <button @click="onClickDateNow($event)" >Data di oggi</button>
+    <button @click="onClickChangeColor($event)" >CambiaColore</button>
+
   </main>
 </template>
 
+<script >
+// import HelloWorld from './components/HelloWorld.vue'
+import TheWelcome from './components/TheWelcome.vue'
+import CinappiWorld from './components/CinappiWorld.vue'
+
+export default {
+  name: 'App',
+  components: {
+    CinappiWorld,
+    TheWelcome
+  },
+  data() {
+    return {
+      datetime: null,
+      color: true,
+    }
+  },
+  methods: {
+    onClickDateNow(e){
+      console.log('evento:',e)
+      this.datetime = Date.now();
+    },
+    onClickChangeColor(e){
+      this.color=!this.color;
+    },
+    formattedDatetime(time='1900-01-01 00:00:00') {
+      return new Date(time).toLocaleString();
+    }
+  },
+  computed:{
+    dataOggi(){
+      return this.formattedDatetime(this.datetime);
+    }
+  },
+  mounted(){
+    this.datetime = '1988-10-24 00:00:00';
+  }
+}
+
+</script>
+
 <style scoped>
+
+.red{
+  background-color: red;
+}
+
+.green{
+  background-color: green;
+}
+
 header {
   line-height: 1.5;
 }
