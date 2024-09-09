@@ -8,17 +8,35 @@
       'green': color,
       'red': !color
     }" >
-      <CinappiWorld msg="ciaooooo!" :data="datetime"/>
+      <CinappiWorld msg="ciaooooo!" :data="datetime" @OnPlay="onPlay" v-if="state">
+        <h1>Bello il Lunedí!!!!</h1>
+        <template #header>
+          dfvfdsa
+        </template>
+      </CinappiWorld>
+
+
+      <div v-else>Niente</div>
     </div>
 
-    <div><h1>Datetime: {{ dataOggi }}</h1></div>
+    <div><h1>Datetime: {{ dataOggi }} <span id="cippo"></span></h1></div>
   </header>
 
   <main>
     <button @click="onClickDateNow($event)" >Data di oggi</button>
     <button @click="onClickChangeColor($event)" >CambiaColore</button>
+    <button @click="toggleState" >Toggle visibility!!!</button>
 
   </main>
+  <div>
+    <h2>Esempio di un for</h2>
+    <hr />
+    <div class="box" v-for="(item, i) in listaProdotti" :key="item" :id="'myId-'+i">
+      <h4>{{item.nome}}</h4>
+      <p>{{ item.costo }}</p>
+      <br />
+    </div>
+  </div>
 </template>
 
 <script >
@@ -36,9 +54,36 @@ export default {
     return {
       datetime: null,
       color: true,
+      state:true,
+      listaProdotti:[
+        {
+          nome:'panino',
+          costo:12
+        },
+        {
+          nome:'hamburger',
+          costo:122
+        },
+        {
+          nome:'banaa',
+          costo:1
+        }
+      ]
     }
   },
   methods: {
+    toggleState(){
+      this.state=!this.state;
+    },
+    onPlay(e){
+      // const $=this.JQuery;
+      console.log('onplay: ',e)
+      console.log('scope this: ',this)
+      console.log('scope global: ',this.Window)
+
+      // $(`#cippo`).text('vghjuikjbvghjmnbhjmnbhjmnbhjmnb')
+
+    },
     onClickDateNow(e){
       console.log('evento:',e)
       this.datetime = Date.now();
