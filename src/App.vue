@@ -1,7 +1,7 @@
 
 
 <template>
-  <header>
+  <header v-if="old">
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper" :class="{
@@ -22,13 +22,13 @@
     <div><h1>Datetime: {{ dataOggi }} <span id="cippo"></span></h1></div>
   </header>
 
-  <main>
+  <main v-if="old">
     <button @click="onClickDateNow($event)" >Data di oggi</button>
     <button @click="onClickChangeColor($event)" >CambiaColore</button>
     <button @click="toggleState" >Toggle visibility!!!</button>
 
   </main>
-  <div>
+  <div v-if="old">
     <h2>Esempio di un for</h2>
     <hr />
     <div class="box" v-for="(item, i) in listaProdotti" :key="item" :id="'myId-'+i">
@@ -52,6 +52,7 @@ export default {
   },
   data() {
     return {
+      old:false,
       datetime: null,
       color: true,
       state:true,
